@@ -1,4 +1,4 @@
-<p align="center"><img src="https://cdn.rawgit.com/wiki/cpriego/valet-linux/images/valet.svg"></p>
+<p align="center"><img src="https://cdn.jsdelivr.net/gh/cpriego/valet-linux-docs@master/assets/valet-logo.png"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/cpriego/valet-linux"><img src="https://travis-ci.org/cpriego/valet-linux.svg?branch=master" alt="Build Status"></a>
