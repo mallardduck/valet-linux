@@ -48,7 +48,8 @@
         "nategood/httpful": "~0.2",
         "tightenco/collect": "~5.3|^6.0|^7.0|^8.0",
         "ext-posix": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "outrightvision/api-model": "
     },
     "require-dev": {
         "mockery/mockery": "~0.9.4",
