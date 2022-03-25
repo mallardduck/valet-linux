@@ -10,7 +10,6 @@ class InstallTest extends FunctionalTestCase
 {
     public function test_valet_is_running_after_install()
     {
-        $this->markTestSkipped();
         $response = \Httpful\Request::get('http://test.test')->send();
 
         $this->assertEquals(404, $response->code);
