@@ -7,7 +7,7 @@ use Valet\ServiceManagers\LinuxService;
 
 class LinuxServiceTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $_SERVER['SUDO_USER'] = user();
 
@@ -15,7 +15,7 @@ class LinuxServiceTest extends TestCase
     }
 
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Mockery::close();
     }

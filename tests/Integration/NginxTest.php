@@ -12,7 +12,7 @@ use Valet\Site;
 
 class NginxTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $_SERVER['SUDO_USER'] = user();
 
@@ -20,7 +20,7 @@ class NginxTest extends TestCase
     }
 
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Mockery::close();
     }
@@ -119,7 +119,7 @@ class NginxTest extends TestCase
         $files->shouldReceive('putAsUser')->with(VALET_HOME_PATH . '/Nginx/.keep', "\n")->once();
 
         swap(Filesystem::class, $files);
-        swap(Configuration::class, Mockery::spy(Configuration::class));
+        swap(Configuration::class, $config = Mockery::spy(Configuration::class, ['read' => ['domain' => 'test']]));
         swap(Site::class, Mockery::spy(Site::class));
         swap(PackageManager::class, Mockery::mock(PackageManager::class));
         swap(ServiceManager::class, Mockery::mock(ServiceManager::class));
@@ -137,7 +137,7 @@ class NginxTest extends TestCase
         $files->shouldReceive('putAsUser')->with(VALET_HOME_PATH . '/Nginx/.keep', "\n")->once();
 
         swap(Filesystem::class, $files);
-        swap(Configuration::class, Mockery::spy(Configuration::class));
+        swap(Configuration::class, $config = Mockery::spy(Configuration::class, ['read' => ['domain' => 'test']]));
         swap(Site::class, Mockery::spy(Site::class));
         swap(PackageManager::class, Mockery::mock(PackageManager::class));
         swap(ServiceManager::class, Mockery::mock(ServiceManager::class));
