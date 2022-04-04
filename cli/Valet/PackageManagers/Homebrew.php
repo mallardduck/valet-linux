@@ -31,7 +31,7 @@ class Homebrew implements PackageManager
     {
         $query = "brew list --formula | grep {$package}";
 
-        return explode(PHP_EOL, $this->cli->run($query));
+        return explode(PHP_EOL, $this->cli->runAsUser($query));
     }
 
     /**
@@ -42,6 +42,9 @@ class Homebrew implements PackageManager
      */
     public function installed($package)
     {
+        // For php-fpm we need to tim the -fpm out of the string as
+        // php-fpm gets installed among php
+        $package = str_replace('-fpm', null, $package);
         return in_array($package, $this->packages($package));
     }
 
@@ -68,7 +71,7 @@ class Homebrew implements PackageManager
     {
         output('<info>[' . $package . '] is not installed, installing it now via Brew...</info> 🍻');
 
-        $this->cli->run(trim('brew install ' . $package), function ($exitCode, $errorOutput) use ($package) {
+        $this->cli->runAsUser(trim('brew install ' . $package), function ($exitCode, $errorOutput) use ($package) {
             output($errorOutput);
 
             throw new DomainException('Brew was unable to install [' . $package . '].');
@@ -101,7 +104,7 @@ class Homebrew implements PackageManager
     public function isAvailable()
     {
         try {
-            $output = $this->cli->run('which brew', function ($exitCode, $output) {
+            $output = $this->cli->runAsUser('which brew', function ($exitCode, $output) {
                 throw new DomainException('Brew not available');
             });
 

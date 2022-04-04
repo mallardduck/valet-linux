@@ -34,10 +34,10 @@ $app->command('install [--ignore-selinux]', function ($ignoreSELinux) {
     passthru(dirname(__FILE__) . '/scripts/update.sh'); // Clean up cruft
 
     Requirements::setIgnoreSELinux($ignoreSELinux)->check();
-    Configuration::install();
     Nginx::install();
     PhpFpm::install();
     DnsMasq::install(Configuration::read()['domain']);
+    Configuration::install();
     Nginx::restart();
     Valet::symlinkToUsersBin();
 
