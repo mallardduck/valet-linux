@@ -9,6 +9,7 @@ use Valet\Contracts\ServiceManager;
 use Valet\PackageManagers\Apt;
 use Valet\PackageManagers\Dnf;
 use Valet\PackageManagers\Eopkg;
+use Valet\PackageManagers\Homebrew;
 use Valet\PackageManagers\PackageKit;
 use Valet\PackageManagers\Pacman;
 use Valet\PackageManagers\Yum;
@@ -122,6 +123,7 @@ class Valet
     public function getAvailablePackageManager(): string
     {
         return collect([
+            Homebrew::class,
             Apt::class,
             Dnf::class,
             Pacman::class,
