@@ -264,7 +264,8 @@ class PhpFpm
             '/etc/php' . $this->version . '/php-fpm.d', // Manjaro
             '/etc/php-fpm.d', // Fedora
             '/etc/php/php-fpm.d', // Arch
-            '/etc/php7/fpm/php-fpm.d', // openSUSE
+            '/etc/php7/fpm/php-fpm.d', // openSUSE PHP7
+            '/etc/php8/fpm/php-fpm.d', // openSUSE PHP8
         ])->first(function ($path) {
             return is_dir($path);
         }, function () {
