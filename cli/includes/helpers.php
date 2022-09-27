@@ -18,9 +18,9 @@ define('VALET_STATIC_PREFIX', '41c270e4-5535-4daa-b23e-c269744c2f45');
  * @param string $output
  * @return void
  */
-function info($output)
+function valet_info($output)
 {
-    output('<info>' . $output . '</info>');
+    valet_output('<info>' . $output . '</info>');
 }
 
 /**
@@ -29,9 +29,9 @@ function info($output)
  * @param string $output
  * @return void
  */
-function warning($output)
+function valet_warning($output)
 {
-    output('<fg=red>' . $output . '</>');
+    valet_output('<fg=red>' . $output . '</>');
 }
 
 /**
@@ -41,7 +41,7 @@ function warning($output)
  * @param array $rows
  * @return void
  */
-function table(array $headers = [], array $rows = [])
+function valet_table(array $headers = [], array $rows = [])
 {
     $table = new Table(new ConsoleOutput);
 
@@ -56,7 +56,7 @@ function table(array $headers = [], array $rows = [])
  * @param string $output
  * @return void
  */
-function output($output)
+function valet_output($output)
 {
     if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'testing') {
         return;

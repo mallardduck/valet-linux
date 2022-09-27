@@ -66,10 +66,10 @@ class Eopkg implements PackageManager
      */
     public function installOrFail($package)
     {
-        output('<info>[' . $package . '] is not installed, installing it now via Eopkg...</info> 🍻');
+        valet_output('<info>[' . $package . '] is not installed, installing it now via Eopkg...</info> 🍻');
 
         $this->cli->run(trim('eopkg install -y ' . $package), function ($exitCode, $errorOutput) use ($package) {
-            output($errorOutput);
+            valet_output($errorOutput);
 
             throw new DomainException('Eopkg was unable to install [' . $package . '].');
         });

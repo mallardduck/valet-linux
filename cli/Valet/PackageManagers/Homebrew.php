@@ -69,10 +69,10 @@ class Homebrew implements PackageManager
      */
     public function installOrFail($package)
     {
-        output('<info>[' . $package . '] is not installed, installing it now via Brew...</info> 🍻');
+        valet_output('<info>[' . $package . '] is not installed, installing it now via Brew...</info> 🍻');
 
         $this->cli->runAsUser(trim('brew install ' . $package), function ($exitCode, $errorOutput) use ($package) {
-            output($errorOutput);
+            valet_output($errorOutput);
 
             throw new DomainException('Brew was unable to install [' . $package . '].');
         });

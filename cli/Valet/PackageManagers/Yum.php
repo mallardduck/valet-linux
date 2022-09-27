@@ -57,10 +57,10 @@ class Yum implements PackageManager
      */
     public function installOrFail($package)
     {
-        output('<info>[' . $package . '] is not installed, installing it now via Yum...</info> 🍻');
+        valet_output('<info>[' . $package . '] is not installed, installing it now via Yum...</info> 🍻');
 
         $this->cli->run(trim('yum install -y ' . $package), function ($exitCode, $errorOutput) use ($package) {
-            output($errorOutput);
+            valet_output($errorOutput);
 
             throw new DomainException('Yum was unable to install [' . $package . '].');
         });

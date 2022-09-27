@@ -44,13 +44,13 @@ class PhpFpm
             $this->pm->ensureInstalled("php{$this->version}-fpm");
             $this->sm->enable($this->fpmServiceName());
         }
-        output('<info>PHP Logs');
+        valet_output('<info>PHP Logs');
         $this->files->ensureDirExists('/var/log', user());
 
-        output('<info>Installing php config');
+        valet_output('<info>Installing php config');
         $this->installConfiguration();
 
-        output('<info>Restarting php-fpm');
+        valet_output('<info>Restarting php-fpm');
         $this->restart();
     }
 
@@ -84,7 +84,7 @@ class PhpFpm
         $exception = null;
 
         $this->stop();
-        info('Disabling php' . $this->version . '-fpm...');
+        valet_info('Disabling php' . $this->version . '-fpm...');
         $this->sm->disable($this->fpmServiceName());
 
         if (!isset($version) || strtolower($version) === 'default') {
@@ -101,7 +101,7 @@ class PhpFpm
         }
 
         if ($this->sm->disabled($this->fpmServiceName())) {
-            info('Enabling php' . $this->version . '-fpm...');
+            valet_info('Enabling php' . $this->version . '-fpm...');
             $this->sm->enable($this->fpmServiceName());
         }
 
@@ -112,7 +112,7 @@ class PhpFpm
         }
 
         if ($exception) {
-            info('Changing version failed');
+            valet_info('Changing version failed');
             throw $exception;
         }
 

@@ -32,7 +32,7 @@ class LinuxService implements ServiceManager
         $services = is_array($services) ? $services : func_get_args();
 
         foreach ($services as $service) {
-            info("Starting $service...");
+            valet_info("Starting $service...");
             $this->cli->quietly('sudo service ' . $this->getRealService($service) . ' start');
         }
     }
@@ -49,7 +49,7 @@ class LinuxService implements ServiceManager
         $services = is_array($services) ? $services : func_get_args();
 
         foreach ($services as $service) {
-            info("Stopping $service...");
+            valet_info("Stopping $service...");
             $this->cli->quietly('sudo service ' . $this->getRealService($service) . ' stop');
         }
     }
@@ -66,7 +66,7 @@ class LinuxService implements ServiceManager
         $services = is_array($services) ? $services : func_get_args();
 
         foreach ($services as $service) {
-            info("Restarting $service...");
+            valet_info("Restarting $service...");
             $this->cli->quietly('sudo service ' . $this->getRealService($service) . ' restart');
         }
     }
@@ -91,13 +91,13 @@ class LinuxService implements ServiceManager
                 $running = strpos(trim($status), 'running');
 
                 if ($running) {
-                    return info(ucfirst($service) . ' is running...');
+                    return valet_info(ucfirst($service) . ' is running...');
                 } else {
-                    return warning(ucfirst($service) . ' is stopped...');
+                    return valet_warning(ucfirst($service) . ' is stopped...');
                 }
             }
 
-            return info($this->cli->run('service ' . $this->getRealService($service)));
+            return valet_info($this->cli->run('service ' . $this->getRealService($service)));
         }
     }
 
@@ -145,12 +145,12 @@ class LinuxService implements ServiceManager
 
                     if (!$this->disabled($service)) {
                         $this->cli->quietly('sudo systemctl disable ' . $service);
-                        info(ucfirst($service) . ' has been disabled');
+                        valet_info(ucfirst($service) . ' has been disabled');
                     }
 
-                    info(ucfirst($service) . ' was already disabled');
+                    valet_info(ucfirst($service) . ' was already disabled');
                 } catch (DomainException $e) {
-                    warning(ucfirst($service) . ' not available.');
+                    valet_warning(ucfirst($service) . ' not available.');
                 }
             }
         } else {
@@ -162,7 +162,7 @@ class LinuxService implements ServiceManager
                     $this->cli->quietly("sudo chmod -x /etc/init.d/{$service}");
                     $this->cli->quietly("sudo update-rc.d $service defaults");
                 } catch (DomainException $e) {
-                    warning(ucfirst($service) . ' not available.');
+                    valet_warning(ucfirst($service) . ' not available.');
                 }
             }
         }
@@ -186,16 +186,16 @@ class LinuxService implements ServiceManager
 
                     if ($this->disabled($service)) {
                         $this->cli->quietly('sudo systemctl enable ' . $service);
-                        info(ucfirst($service) . ' has been enabled');
+                        valet_info(ucfirst($service) . ' has been enabled');
 
                         return true;
                     }
 
-                    info(ucfirst($service) . ' was already enabled');
+                    valet_info(ucfirst($service) . ' was already enabled');
 
                     return true;
                 } catch (DomainException $e) {
-                    warning(ucfirst($service) . ' not available.');
+                    valet_warning(ucfirst($service) . ' not available.');
 
                     return false;
                 }
@@ -207,11 +207,11 @@ class LinuxService implements ServiceManager
                 try {
                     $service = $this->getRealService($service);
                     $this->cli->quietly("sudo update-rc.d $service defaults");
-                    info(ucfirst($service) . ' has been enabled');
+                    valet_info(ucfirst($service) . ' has been enabled');
 
                     return true;
                 } catch (DomainException $e) {
-                    warning(ucfirst($service) . ' not available.');
+                    valet_warning(ucfirst($service) . ' not available.');
 
                     return false;
                 }
@@ -292,7 +292,7 @@ class LinuxService implements ServiceManager
      */
     public function installValetDns($files)
     {
-        info("Installing Valet DNS service...");
+        valet_info("Installing Valet DNS service...");
 
         $servicePath = '/etc/init.d/valet-dns';
         $serviceFile = __DIR__ . '/../../stubs/init/sysvinit';

@@ -66,10 +66,10 @@ class Pacman implements PackageManager
      */
     public function installOrFail($package)
     {
-        output('<info>[' . $package . '] is not installed, installing it now via Pacman...</info> 🍻');
+        valet_output('<info>[' . $package . '] is not installed, installing it now via Pacman...</info> 🍻');
 
         $this->cli->run(trim('pacman --noconfirm --needed -S ' . $package), function ($exitCode, $errorOutput) use ($package) {
-            output($errorOutput);
+            valet_output($errorOutput);
 
             throw new DomainException('Pacman was unable to install [' . $package . '].');
         });

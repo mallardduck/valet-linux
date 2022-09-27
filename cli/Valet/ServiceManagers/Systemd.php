@@ -32,7 +32,7 @@ class Systemd implements ServiceManager
         $services = is_array($services) ? $services : func_get_args();
 
         foreach ($services as $service) {
-            info("Starting $service...");
+            valet_info("Starting $service...");
             $this->cli->quietly('sudo systemctl start ' . $this->getRealService($service));
         }
     }
@@ -49,7 +49,7 @@ class Systemd implements ServiceManager
         $services = is_array($services) ? $services : func_get_args();
 
         foreach ($services as $service) {
-            info("Stopping $service...");
+            valet_info("Stopping $service...");
             $this->cli->quietly('sudo systemctl stop ' . $this->getRealService($service));
         }
     }
@@ -66,7 +66,7 @@ class Systemd implements ServiceManager
         $services = is_array($services) ? $services : func_get_args();
 
         foreach ($services as $service) {
-            info("Restarting $service...");
+            valet_info("Restarting $service...");
             $this->cli->quietly('sudo systemctl restart ' . $this->getRealService($service));
         }
     }
@@ -87,9 +87,9 @@ class Systemd implements ServiceManager
             $running = strpos(trim($status), 'running');
 
             if ($running) {
-                info(ucfirst($service) . ' is running...');
+                valet_info(ucfirst($service) . ' is running...');
             } else {
-                warning(ucfirst($service) . ' is stopped...');
+                valet_warning(ucfirst($service) . ' is stopped...');
             }
         }
     }
@@ -137,16 +137,16 @@ class Systemd implements ServiceManager
 
                 if ($this->disabled($service)) {
                     $this->cli->quietly('sudo systemctl enable ' . $service);
-                    info(ucfirst($service) . ' has been enabled');
+                    valet_info(ucfirst($service) . ' has been enabled');
 
                     return true;
                 }
 
-                info(ucfirst($service) . ' was already enabled');
+                valet_info(ucfirst($service) . ' was already enabled');
 
                 return true;
             } catch (DomainException $e) {
-                warning(ucfirst($service) . ' unavailable.');
+                valet_warning(ucfirst($service) . ' unavailable.');
 
                 return false;
             }
@@ -170,16 +170,16 @@ class Systemd implements ServiceManager
 
                 if (!$this->disabled($service)) {
                     $this->cli->quietly('sudo systemctl disable ' . $service);
-                    info(ucfirst($service) . ' has been disabled');
+                    valet_info(ucfirst($service) . ' has been disabled');
 
                     return true;
                 }
 
-                info(ucfirst($service) . ' was already disabled');
+                valet_info(ucfirst($service) . ' was already disabled');
 
                 return true;
             } catch (DomainException $e) {
-                warning(ucfirst($service) . ' unavailable.');
+                valet_warning(ucfirst($service) . ' unavailable.');
 
                 return false;
             }
@@ -235,7 +235,7 @@ class Systemd implements ServiceManager
      */
     public function installValetDns($files)
     {
-        info("Installing Valet DNS service...");
+        valet_info("Installing Valet DNS service...");
 
         $files->put(
             '/etc/systemd/system/valet-dns.service',

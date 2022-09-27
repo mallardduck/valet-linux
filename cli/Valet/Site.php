@@ -139,7 +139,7 @@ class Site
         $this->unsecure($url);
         $this->files->unlink($this->nginxPath($url));
 
-        info('Valet will no longer proxy [https://' . $url . '].');
+        valet_info('Valet will no longer proxy [https://' . $url . '].');
     }
 
     /**
@@ -207,7 +207,7 @@ class Site
 
         $protocol = $secure ? 'https' : 'http';
 
-        info('Valet will now proxy [' . $protocol . '://' . $url . '] traffic to [' . $host . '].');
+        valet_info('Valet will now proxy [' . $protocol . '://' . $url . '] traffic to [' . $host . '].');
     }
 
     public function valetLoopback()

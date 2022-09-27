@@ -66,10 +66,10 @@ class Apt implements PackageManager
      */
     public function installOrFail($package)
     {
-        output('<info>[' . $package . '] is not installed, installing it now via Apt...</info> 🍻');
+        valet_output('<info>[' . $package . '] is not installed, installing it now via Apt...</info> 🍻');
 
         $this->cli->run(trim('apt-get install -y ' . $package), function ($exitCode, $errorOutput) use ($package) {
-            output($errorOutput);
+            valet_output($errorOutput);
 
             throw new DomainException('Apt was unable to install [' . $package . '].');
         });

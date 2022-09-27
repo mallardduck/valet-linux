@@ -56,7 +56,7 @@ class DnsMasq
             $this->cli->run(
                 "chattr {$arg} {$this->resolvconf}",
                 function ($code, $msg) {
-                    warning($msg);
+                    valet_warning($msg);
                 }
             );
         }
@@ -200,7 +200,7 @@ class DnsMasq
         $this->pm->nmRestart($this->sm);
         $this->sm->restart('dnsmasq');
 
-        info('Valet DNS changes have been rolled back');
-        warning('If your system depended on systemd-resolved (like Ubuntu 17.04), please enable it manually');
+        valet_info('Valet DNS changes have been rolled back');
+        valet_warning('If your system depended on systemd-resolved (like Ubuntu 17.04), please enable it manually');
     }
 }

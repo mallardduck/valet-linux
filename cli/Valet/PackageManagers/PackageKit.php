@@ -66,10 +66,10 @@ class PackageKit implements PackageManager
      */
     public function installOrFail($package)
     {
-        output('<info>[' . $package . '] is not installed, installing it now via PackageKit...</info> 🍻');
+        valet_output('<info>[' . $package . '] is not installed, installing it now via PackageKit...</info> 🍻');
 
         $this->cli->run(trim('pkcon install -y ' . $package), function ($exitCode, $errorOutput) use ($package) {
-            output($errorOutput);
+            valet_output($errorOutput);
 
             throw new DomainException('PackageKit was unable to install [' . $package . '].');
         });
